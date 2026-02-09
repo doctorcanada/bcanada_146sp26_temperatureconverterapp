@@ -1,47 +1,83 @@
+
+import java.util.Scanner;
+
 /**
+ * A simple menu-driven program that converts temperatures between Fahrenheit
+ * and Celsius using integer-returning conversion methods.
  *
- * @author bcanada
+ * @author bcanada@uscb.edu
+ * @version 146sp26 Homework 2 problem 5-13
  */
 public class TemperatureConverterApp {
 
+    /**
+     * Displays a menu that allows the user to convert temperatures between
+     * Fahrenheit and Celsius until the user chooses to exit.
+     *
+     * @param args command-line arguments (note: not used here)
+     */
     public static void main(String[] args) {
         /* INITIALIZATION PHASE */
-        // Create a Scanner to read in user input 
-        // Create an integer variable for store the user's menu choice
-        // (from the menu options listed below)
+        Scanner input = new Scanner(System.in);
+
+        int choice; // the user's choice in the menu
 
         /* PROCESSING PHASE */
-        // Repeat until the user chooses to exit:
-        //   - Display a menu with three choices:
-        //       1) Convert Fahrenheit to Celsius
-        //       2) Convert Celsius to Fahrenheit
-        //       3) Exit
-        //   - Prompt the user to enter their choice and read it.
-        //
-        //   - If the choice is 1 or 2:
-        //       - Prompt the user to enter a temperature and read it (as an int).
-        //       - If choice is 1:
-        //           - Call the static `celsius` method to convert the value 
-        //             from F to C.
-        //           - Display a message showing the original Fahrenheit value 
-        //             and the converted Celsius value.
-        //       - Else if choice is 2:
-        //           - Call the static `fahrenheit` method to convert the value 
-        //             from C to F.
-        //           - Display a message showing the original Celsius value and 
-        //             the converted Fahrenheit value.
-        //   - If the choice is 3:
-        //       - Exit the loop.
-        
+        do {
+            // print the menu
+            System.out.println("1. Convert a Fahrenheit temperature to Celsius");
+            System.out.println("2. Convert a Celsius temperature to Fahrenheit");
+            System.out.println("3. Exit");
+            System.out.println();
+
+            System.out.print("Choice: ");
+            choice = input.nextInt();
+
+            if (choice == 1 || choice == 2) {
+                System.out.print("Enter temperature: ");
+                int startingTemperature = input.nextInt();
+
+                // convert the temperature appropriately
+                switch (choice) {
+                    case 1:
+                        System.out.printf("%d degrees Fahrenheit is %d degrees Celsius%n%n",
+                                startingTemperature, celsius(startingTemperature));
+                        break;
+                    case 2:
+                        System.out.printf("%d degrees Celsius is %d degrees Fahrenheit%n%n",
+                                startingTemperature, fahrenheit(startingTemperature));
+                        break;
+                    default:
+                        // no action needed; handled by the if-condition
+                        break;
+                }
+            }
+        } while (choice != 3);
+
         /* TERMINATION PHASE */
-        // Print a friendly goodbye message.
-        
+        System.out.println("Exiting program -- Goodbye!");
     } // end method main
 
-    // TODO: Write a static method named celsius that accepts an int Fahrenheit temperature
-    //       and returns the converted Celsius temperature as an int.
-    
-    // TODO: Write a static method named fahrenheit that accepts an int Celsius temperature
-    //       and returns the converted Fahrenheit temperature as an int.
-    
+    /**
+     * Returns the Celsius equivalent of a Fahrenheit temperature, using:
+     * celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32)
+     *
+     * @param fahrenheitTemperature the temperature in degrees Fahrenheit
+     * @return the converted temperature in degrees Celsius (as an int)
+     */
+    public static int celsius(int fahrenheitTemperature) {
+        return (int) (5.0 / 9.0 * (fahrenheitTemperature - 32));
+    } // end method celsius
+
+    /**
+     * Returns the Fahrenheit equivalent of a Celsius temperature, using:
+     * fahrenheitTemperature = 9.0 / 5.0 * celsiusTemperature + 32
+     *
+     * @param celsiusTemperature the temperature in degrees Celsius
+     * @return the converted temperature in degrees Fahrenheit (as an int)
+     */
+    public static int fahrenheit(int celsiusTemperature) {
+        return (int) (9.0 / 5.0 * celsiusTemperature + 32);
+    } // end method fahrenheit
+
 } // end class TemperatureConverterApp
